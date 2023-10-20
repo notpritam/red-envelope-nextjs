@@ -6,6 +6,7 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/shared/Header";
+import { Toaster } from "react-hot-toast";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -32,6 +33,8 @@ export default function RootLayout({ children }) {
         <WagmiConfig config={config}>
           <Header />
           {children}
+
+          <Toaster />
         </WagmiConfig>
       </body>
     </html>

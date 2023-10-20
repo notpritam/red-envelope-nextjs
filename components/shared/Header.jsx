@@ -42,12 +42,17 @@ function Header() {
   const { disconnect } = useDisconnect();
 
   return (
-    <div className="p-4 h-[100px] text_16  pl-12 pr-12 bg-opacity-30 border-b   sticky top-0 z-10  backdrop-filter backdrop-blur-lg flex items-center justify-between">
+    <div className="h-[60px] lg:p-4 pl-4 pr-4 lg:h-[100px] text_16  lg:pl-12 lg:pr-12 bg-opacity-30 border-b   sticky top-0 z-10  backdrop-filter backdrop-blur-lg flex items-center justify-between">
       <Link href="/">
-        <img src="/assets/logo.png" className="h-[80px] w-[80px]"></img>
+        <img
+          src="/assets/logo.png"
+          className=" h-[40px] w-[40px] lg:h-[80px] lg:w-[80px]"
+        ></img>
       </Link>
 
-      <div className="flex gap-4 w-full justify-end">
+      <span className="lg:hidden">RedLetter</span>
+
+      <div className="hidden lg:flex gap-4 w-full justify-end">
         <Menubar className="gap-4 pr-8 pl-8">
           <MenubarMenu>
             <Link href="/create">Send Gifts</Link>

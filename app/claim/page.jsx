@@ -18,6 +18,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 
 import { useAccount, useConnect } from "wagmi";
+import Game from "@/components/shared/Game";
 
 function page() {
   const { account, address, connector, isConnected } = useAccount();
@@ -90,14 +91,8 @@ function page() {
           </div>
         </>
       ) : (
-        <div className="mt-[100px] flex flex-col items-center gap-8">
-          <Lottie
-            lottieRef={envelopeRef}
-            className="h-[50vh]"
-            animationData={envelope}
-          />
-
-          <Button className="flex w-[300px]">Claim Your Prize</Button>
+        <div className=" flex flex-col items-center gap-8">
+          <Game />
         </div>
       )}
     </>

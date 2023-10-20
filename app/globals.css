@@ -112,42 +112,10 @@
 
 
 
-
-
-.btn {
-  padding: 15px;
-  font-weight: 700;
-  font-size: 2rem;
-  text-decoration: none;
-  text-align: center;
-  transition: all .5s ease; 
-}
-
-.btn--doar {
-  color: #fff;
-  padding-right: 0;
-  background-color: #c0392b;
-  -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 70%, 90% 100%, 0% 100%);
-  clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 100%, 0 100%);
+.tile:hover{
+  box-shadow: rgba(255, 0, 0, 0.35) 0px 5px 15px;
 
 }
 
-.btn--doar:hover { 
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);  
-}
 
-.btn--doar:after {
-  content: "\f004";
-  color: #e74c3c;
-  font-family: FontAwesome;
-  display: inline-block;
-  position: relative;
-  right: -55px;
-  transition: all 0.2s ease;
-}
 
-.btn--doar:hover:after {
-  margin: -5px 15px;
-  right: 0px;
-}
