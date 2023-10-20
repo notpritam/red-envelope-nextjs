@@ -10,6 +10,16 @@ import envelope from "../../ani/envelope.json";
 
 import create from "../../ani/blockchain1.json";
 
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
 import { Web3 } from "web3";
 
 import { Button } from "@/components/ui/button";
@@ -21,7 +31,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Coins, Copy, KeySquare, LogIn } from "lucide-react";
+import {
+  Coins,
+  Copy,
+  Facebook,
+  KeySquare,
+  LogIn,
+  Mail,
+  MessageSquare,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { useParams, useSearchParams } from "next/navigation";
@@ -37,6 +55,7 @@ import { readContract } from "@wagmi/core";
 
 import Image from "next/image";
 import { parseEther } from "viem";
+import toast from "react-hot-toast";
 
 const characters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -61,10 +80,13 @@ function page() {
   const [count, setCount] = useState(0);
 
   const [amount, setAmount] = useState(0);
+  const [greeting, setGreetings] = useState("");
 
   //Main Code From Here
 
   //dont forget to set envHash to nUll after testing
+
+  const [userCodeList, setUserCodeList] = useState();
   const [envHash, setenvHash] = useState("test");
   const { write, data, error, isLoading, isError } = useContractWrite({
     address: contractAdd,
@@ -78,6 +100,8 @@ function page() {
         functionName: "getLatest",
       });
       setenvHash(data);
+
+      toast.success("Envelope Successfully Created");
     },
   });
   const {
@@ -87,7 +111,7 @@ function page() {
   } = useWaitForTransaction({ hash: data?.hash });
 
   const createContract = () => {
-    const greeting = "Hii This is You";
+    const greetings = greeting;
     const passArray = [];
     const hashArray = [];
     for (let index = 0; index < count; index++) {
@@ -96,13 +120,15 @@ function page() {
       hashArray.push(Web3.utils.soliditySha3({ type: "string", value: pass }));
     }
     console.log(passArray);
+    setUserCodeList(passArray);
     console.log(hashArray);
     console.log(count);
     console.log(greeting);
     write({
-      args: [greeting, count, hashArray],
-      value: parseEther("3"),
+      args: [greetings, count, hashArray],
+      value: parseEther(`${amount}`),
     });
+    toast.success("Envelope Successfully Created");
   };
 
   return (
@@ -187,6 +213,17 @@ function page() {
               ></input>
             </div>
 
+            <div className="flex border gap-4  border-white rounded-md p-2 pl-4 pr-4 items-center focus:outline-none focus:ring-0 focus:border-none">
+              <MessageSquare />
+              <input
+                placeholder="Write Your Greetingss..."
+                type="text"
+                value={greeting}
+                onChange={(e) => setGreetings(e.target.value)}
+                className="p-2 w-full shadow-none text-[20px] dark bg-transparent rounded-md overflow-hidden"
+              ></input>
+            </div>
+
             <div className="flex flex-col gap-4">
               <span className="text-[18px]">Member Count :- {count}</span>
               <Slider
@@ -212,8 +249,46 @@ function page() {
 
       {envHash != null ? (
         <>
-          <div className="p-8 mt-[8rem] flex items-center justify-center ">
-            This is Table
+          <div className="p-8 mt-[8rem]  flex align-middle items-center w-full justify-center flex-col ">
+            <div className="w-[80%] flex flex-col mb-[2rem]">
+              <span className="text-[60px] font-medium bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500  text-transparent bg-clip-text">
+                Share the Joy
+              </span>
+              <span className="text-xl text-gray-500">
+                Distribute Your Codes and Links to Let Loved Ones Claim Their
+                Gifts
+              </span>
+            </div>
+            <Table className="w-[80%] m-auto">
+              <TableCaption>A list of your recent invoices.</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[200px]">Member No.</TableHead>
+                  <TableHead>Code</TableHead>
+                  <TableHead className="flex-1 flex w-full">Share</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {userCodeList?.map((item, index) => (
+                  <>
+                    <TableRow>
+                      <TableCell className="font-medium">{index + 1}</TableCell>
+                      <TableCell>{item}</TableCell>
+                      <TableCell className="flex gap-[2rem]">
+                        <span>
+                          {`http://localhost:3000/claim?code=${item}&address=${envHash}`}
+                        </span>
+                        <div className="flex gap-2">
+                          <Copy className="cursor-pointer" />
+                          <Facebook className="cursor-pointer" />
+                          <Mail className="cursor-pointer" />
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  </>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         </>
       ) : null}
