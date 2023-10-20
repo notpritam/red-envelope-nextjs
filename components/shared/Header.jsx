@@ -26,6 +26,8 @@ import {
   MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import { Copy, LogOut } from "lucide-react";
+import { Button } from "../ui/button";
 
 function Header() {
   const { account, address, connector, isConnected } = useAccount();
@@ -33,13 +35,13 @@ function Header() {
     useConnect();
 
   const { data, isError } = useBalance({
-    address: account?.address,
+    address: address,
   });
 
   const { disconnect } = useDisconnect();
 
   return (
-    <div className="p-4 pl-12 pr-12 bg-opacity-30 border-b  sticky top-0 z-10  backdrop-filter backdrop-blur-lg flex items-center justify-between">
+    <div className="p-4 h-[100px]  pl-12 pr-12 bg-opacity-30 border-b   sticky top-0 z-10  backdrop-filter backdrop-blur-lg flex items-center justify-between">
       <img src="/assets/logo.png" className="h-[80px] w-[80px]"></img>
 
       <div className="flex gap-4 w-full justify-end">
@@ -78,7 +80,6 @@ function Header() {
               {/* <div>{ensName ? `${ensName} (${address})` : address}</div> */}
               <div>
                 Balance: {data?.formatted} {data?.symbol}
-                {console.log(data)}
               </div>
               <HoverCard>
                 <HoverCardTrigger>
@@ -88,7 +89,17 @@ function Header() {
                   </Avatar>
                 </HoverCardTrigger>
                 <HoverCardContent>
-                  <button onClick={() => disconnect()}>Logout</button>
+                  <div className=" overflow-hidden gap-4 flex flex-col">
+                    <span className="text-[12px] w-full text-ellipsis">
+                      {address}
+                    </span>
+                    <Button onClick={() => disconnect()}>
+                      <Copy className="mr-2 h-4 w-4" /> Copy Address
+                    </Button>
+                    <Button onClick={() => disconnect()}>
+                      <LogOut className="mr-2 h-4 w-4" /> Logout
+                    </Button>
+                  </div>
                 </HoverCardContent>
               </HoverCard>
             </div>
