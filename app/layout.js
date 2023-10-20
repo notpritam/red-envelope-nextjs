@@ -7,19 +7,20 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Header from "@/components/shared/Header";
 import { Toaster } from "react-hot-toast";
+import { config } from "@/lib/wagmi";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-export const config = createConfig({
-  autoConnect: true,
-  publicClient: createPublicClient({
-    chain: mainnet,
-    transport: http(),
-  }),
-});
+// export const config = createConfig({
+//   autoConnect: true,
+//   publicClient: createPublicClient({
+//     chain: mainnet,
+//     transport: http(),
+//   }),
+// });
 
 export default function RootLayout({ children }) {
   return (

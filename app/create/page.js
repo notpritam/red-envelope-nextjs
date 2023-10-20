@@ -1,4 +1,7 @@
 "use client";
+
+import FactoryAbi from "../../lib/redFactory.js";
+
 import Lottie from "lottie-react";
 import { Slider } from "@/components/ui/slider";
 
@@ -6,6 +9,8 @@ import giftAni from "../../ani/giftIcon.json";
 import envelope from "../../ani/envelope.json";
 
 import create from "../../ani/blockchain1.json";
+
+import { Web3 } from "web3";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,16 +26,84 @@ import { useEffect, useRef, useState } from "react";
 
 import { useParams, useSearchParams } from "next/navigation";
 
-import { useAccount, useConnect } from "wagmi";
+import {
+  readContracts,
+  useAccount,
+  useConnect,
+  useContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
+import { readContract } from "@wagmi/core";
+
 import Image from "next/image";
+import { parseEther } from "viem";
+
+const characters =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+function generateString(length) {
+  let result = " ";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
+}
+
+const contractAdd = "0x8464135c8F25Da09e49BC8782676a84730C318bC";
 
 function page() {
   const { account, address, connector, isConnected } = useAccount();
-  const { connect, connectors, error, isLoading, pendingConnector } =
-    useConnect();
+  const { connect, connectors, pendingConnector } = useConnect();
   const [open, setOpen] = useState(!isConnected);
 
   const [count, setCount] = useState(0);
+
+  const [amount, setAmount] = useState(0);
+
+  //Main Code From Here
+
+  //dont forget to set envHash to nUll after testing
+  const [envHash, setenvHash] = useState("test");
+  const { write, data, error, isLoading, isError } = useContractWrite({
+    address: contractAdd,
+    abi: FactoryAbi,
+    functionName: "createRedEnvelope",
+    value: parseEther(`${amount}`),
+    async onSuccess() {
+      const data = await readContract({
+        address: contractAdd,
+        abi: FactoryAbi,
+        functionName: "getLatest",
+      });
+      setenvHash(data);
+    },
+  });
+  const {
+    data: receipt,
+    isLoading: isPending,
+    isSuccess,
+  } = useWaitForTransaction({ hash: data?.hash });
+
+  const createContract = () => {
+    const greeting = "Hii This is You";
+    const passArray = [];
+    const hashArray = [];
+    for (let index = 0; index < count; index++) {
+      const pass = generateString(10);
+      passArray.push(pass);
+      hashArray.push(Web3.utils.soliditySha3({ type: "string", value: pass }));
+    }
+    console.log(passArray);
+    console.log(hashArray);
+    console.log(count);
+    console.log(greeting);
+    write({
+      args: [greeting, count, hashArray],
+      value: parseEther("3"),
+    });
+  };
 
   return (
     <>
@@ -108,6 +181,8 @@ function page() {
               <input
                 placeholder="Amount"
                 type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
                 className="p-2 w-full shadow-none text-[20px] dark bg-transparent rounded-md overflow-hidden"
               ></input>
             </div>
@@ -126,11 +201,22 @@ function page() {
             </div>
           </div>
 
-          <Button className="p-4 pl-8 pr-8 mt-12 w-auto text-[16px] hover:bg-black hover:text-white transition-all duration-300">
+          <Button
+            onClick={() => createContract()}
+            className="p-4 pl-8 pr-8 mt-12 w-auto text-[16px] hover:bg-black hover:text-white transition-all duration-300"
+          >
             Submit
           </Button>
         </div>
       </div>
+
+      {envHash != null ? (
+        <>
+          <div className="p-8 mt-[8rem] flex items-center justify-center ">
+            This is Table
+          </div>
+        </>
+      ) : null}
     </>
   );
 }

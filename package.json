@@ -29,7 +29,8 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
     "viem": "^1.16.6",
-    "wagmi": "^1.4.4"
+    "wagmi": "^1.4.4",
+    "web3": "^4.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^10",
