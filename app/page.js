@@ -83,7 +83,7 @@ const upcomingFeatures = [
   "Cross-Chain Gifting",
   "Multi Currency Support",
   "Customizable Gift Themes",
-  "Auto Reminders",
+  "Auto Remeinders",
   "Group Gifting",
   // "Auto Reminders",
 ];
@@ -151,30 +151,12 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col w-full lg:items-center  gap-4">
-        <span className=" text-[35px] lg:text-[50px] font-semibold">
-          Key Features
-        </span>
-        <span className="text-xl text-gray-500">Sending Gifts Made Easy</span>
-
-        <div className="grid grid-cols-1 mt-[3rem] lg:grid-cols-3  items-center align-middle gap-8 lg:w-[90%]">
-          {keyFeatures.map((item) => (
-            <>
-              <div className="rounded-lg w-full lg:w-auto overflow-hidden p-8 flex-col flex gap-4 border-[2px] dark">
-                <Lottie
-                  className="h-[150px] w-[150px]"
-                  animationData={item.img}
-                ></Lottie>
-                <span className="text-[20px] font-bold">{item.title}</span>
-                <span className="text-[16px] text-gray-400">{item.des}</span>
-              </div>
-            </>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex flex-col w-full lg:items-center  gap-4">
-        <span className=" text-[35px] lg:text-[50px] font-semibold">
-          Technolgies Used
+        <span className=" text-[35px] lg:text-[50px] font-semibold ">
+          <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%]">
+            {" "}
+            Technolgies
+          </span>
+          Used
         </span>
         <span className="text-xl text-gray-500">Sending Gifts Made Easy</span>
 
@@ -221,6 +203,28 @@ export default function Home() {
           <div className="pl-4 pr-4 flex justify-center bg-white rounded-lg  items-center">
             <img src="/assets/soliditylogo.png" className="h-[60px]"></img>
           </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col w-full lg:items-center  gap-4">
+        <span className=" text-[35px] lg:text-[50px] font-semibold">
+          Key Features
+        </span>
+        <span className="text-xl text-gray-500">Sending Gifts Made Easy</span>
+
+        <div className="grid grid-cols-1 mt-[3rem] lg:grid-cols-3  items-center align-middle gap-8 lg:w-[90%]">
+          {keyFeatures.map((item) => (
+            <>
+              <div className="rounded-lg w-full lg:w-auto overflow-hidden p-8 flex-col flex gap-4 border-[2px] dark">
+                <Lottie
+                  className="h-[150px] w-[150px]"
+                  animationData={item.img}
+                ></Lottie>
+                <span className="text-[20px] font-bold">{item.title}</span>
+                <span className="text-[16px] text-gray-400">{item.des}</span>
+              </div>
+            </>
+          ))}
         </div>
       </div>
 
