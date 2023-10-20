@@ -77,6 +77,16 @@ const unlockingTheMagic = [
     img: gameIcon,
   },
 ];
+
+const upcomingFeatures = [
+  "NFT Integration",
+  "Cross-Chain Gifting",
+  "Multi Currency Support",
+  "Customizable Gift Themes",
+  "Auto Reminders",
+  "Group Gifting",
+  // "Auto Reminders",
+];
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center lg:gap-12 gap-4 justify-between p-8 lg:p-24">
@@ -116,7 +126,10 @@ export default function Home() {
 
       <div className="flex flex-col w-full lg:items-center  gap-4">
         <span className=" text-[35px] lg:text-[50px] font-semibold">
-          Unlocking the Magic
+          Unlocking the{" "}
+          <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%]">
+            Magic
+          </span>
         </span>
         <span className="text-xl text-gray-500">
           The RedLetter Journey Explained
@@ -125,8 +138,8 @@ export default function Home() {
         <div className="grid grid-cols-1 mt-[3rem] lg:grid-cols-3  items-center align-middle gap-8 lg:w-[90%]">
           {unlockingTheMagic.map((item, index) => (
             <>
-              <div className="rounded-lg w-full lg:w-auto overflow-hidden p-8 flex-col flex gap-4 border-[2px] dark">
-                <div className="h-[80px] w-[80px] rounded-full border flex justify-center items-center text-[30px] font-semibold ">
+              <div className="hover:shadow-2xl duration-300 ease-in-out h-full hover:border-white rounded-lg w-full lg:w-auto overflow-hidden p-8 flex-col flex gap-4 border-[2px] dark">
+                <div className="h-[80px] w-[80px] rounded-full border flex justify-center items-center text-[30px] font-semibold  bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%]">
                   {index + 1}
                 </div>
                 <span className="text-[20px] font-bold">{item.title}</span>
@@ -208,6 +221,32 @@ export default function Home() {
           <div className="pl-4 pr-4 flex justify-center bg-white rounded-lg  items-center">
             <img src="/assets/soliditylogo.png" className="h-[60px]"></img>
           </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col w-full lg:items-center  gap-4">
+        <span className=" text-[35px] lg:text-[50px] font-semibold">
+          <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%]">
+            Coming Soon
+          </span>
+        </span>
+        <span className="text-xl text-gray-500">
+          Stay Tuned for Exciting Features That Will Redefine the Art of Gifting
+        </span>
+
+        <div className="grid grid-cols-1 mt-[3rem] lg:grid-cols-3  items-center align-middle gap-8 lg:w-[90%]">
+          {upcomingFeatures.map((item, index) => (
+            <>
+              <div className="hover:shadow-2xl duration-300 ease-in-out h-full hover:border-white rounded-lg w-full lg:w-auto overflow-hidden p-4 items-center flex gap-4 border-[2px] dark">
+                <div className="h-[80px] w-[80px] rounded-full border flex justify-center items-center text-[20px] font-semibold  bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%]">
+                  {index + 1}
+                </div>
+                <span className="text-[18px] font-light tracking-[.25rem]">
+                  {item}
+                </span>
+              </div>
+            </>
+          ))}
         </div>
       </div>
     </main>
