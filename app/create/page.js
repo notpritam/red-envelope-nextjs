@@ -5,7 +5,7 @@ import { Slider } from "@/components/ui/slider";
 import giftAni from "../../ani/giftIcon.json";
 import envelope from "../../ani/envelope.json";
 
-import create from "../../ani/create.json";
+import create from "../../ani/blockchain1.json";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -95,37 +95,41 @@ function page() {
           src="/assets/banner.jpg"
         ></Image>
 
-        <Lottie animationData={create}></Lottie>
+        <div className="z-[10] flex flex-col gap-4">
+          <Lottie className="h-[300px]" animationData={create}></Lottie>
 
-        <span className="text-[60px] font-medium">Create the Envelope</span>
+          <span className="text-[60px] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500  text-transparent bg-clip-text  font-medium">
+            Create the Envelope
+          </span>
 
-        <div className="flex flex-col  relative z-[100] justify-center gap-8">
-          <div className="flex border gap-4  border-white rounded-md p-2 pl-4 pr-4 items-center focus:outline-none focus:ring-0 focus:border-none">
-            <Coins />
-            <input
-              placeholder="Amount"
-              type="number"
-              className="p-2 shadow-none text-[20px] dark bg-transparent rounded-md overflow-hidden"
-            ></input>
+          <div className="flex flex-col  relative z-[100] justify-center gap-8">
+            <div className="flex border gap-4  border-white rounded-md p-2 pl-4 pr-4 items-center focus:outline-none focus:ring-0 focus:border-none">
+              <Coins />
+              <input
+                placeholder="Amount"
+                type="number"
+                className="p-2 w-full shadow-none text-[20px] dark bg-transparent rounded-md overflow-hidden"
+              ></input>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <span className="text-[18px]">Member Count :- {count}</span>
+              <Slider
+                defaultValue={[count]}
+                onValueChange={(e) => {
+                  setCount(e);
+                  console.log(e);
+                }}
+                max={15}
+                step={1}
+              />
+            </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <span className="text-[18px]">Member Count :- {count}</span>
-            <Slider
-              defaultValue={[count]}
-              onValueChange={(e) => {
-                setCount(e);
-                console.log(e);
-              }}
-              max={15}
-              step={1}
-            />
-          </div>
+          <Button className="p-4 pl-8 pr-8 mt-12 w-auto text-[16px] hover:bg-black hover:text-white transition-all duration-300">
+            Submit
+          </Button>
         </div>
-
-        <Button className="p-4 pl-8 pr-8 mt-12 w-auto text-[16px]">
-          Submit
-        </Button>
       </div>
     </>
   );
