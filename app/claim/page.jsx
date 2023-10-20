@@ -2,7 +2,7 @@
 import Lottie from "lottie-react";
 
 import giftAni from "../../ani/giftIcon.json";
-import envelope from "../../ani/envelope.json";
+import entertheCode from "../../ani/enterthecode.json";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -76,18 +76,21 @@ function page() {
 
       {!code ? (
         <>
-          <div className="flex mt-[10px] items-center flex-col w-full gap-4 justify-center">
-            <span className="text-[60px] font-medium">Enter the Code</span>
+          <div className="flex mt-[10px] items-center flex-col w-full p-8 lg:p-0 gap-4 justify-center">
+            <Lottie className="h-[300px]" animationData={entertheCode} />
+            <span className="lg:text-[60px] text-[40px] lg:w-auto w-full font-medium">
+              Enter the Code
+            </span>
 
-            <div className="flex items-center focus:outline-none focus:ring-0 focus:border-none">
+            <div className="flex p-2  border-[2px] m-2 gap-4 rounded-lg items-center focus:outline-none focus:ring-0 focus:border-none">
               <KeySquare />
               <input
                 placeholder="0XFDD"
-                className="p-4 shadow-none text-[20px] dark bg-transparent rounded-md overflow-hidden"
+                className="m-2 shadow-none text-[20px] dark bg-transparent rounded-md overflow-hidden"
               ></input>
             </div>
 
-            <Button className="p-4 text-[16px]">Submit</Button>
+            <Button className="p-4 text-[16px] w-full lg:w-auto">Submit</Button>
           </div>
         </>
       ) : (

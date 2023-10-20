@@ -57,10 +57,10 @@ function Game() {
   };
   return gameStatus ? (
     <>
-      <span className="text-[4rem] font-semibold bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%] mt-10px">
+      <span className="text-[2rem] lg:text-[4rem] font-semibold bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%] mt-10px">
         You Won!!!
       </span>
-      <span className="text-4xl font-semibold ">
+      <span className="lg:text-4xl  text-2xl font-semibold ">
         Tried Count :-{" "}
         <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text ">
           {tryCount}
@@ -68,17 +68,19 @@ function Game() {
       </span>
       <Lottie
         // lottieRef={envelopeRef}
-        className="h-[50vh]"
+        className="lg:h-[50vh]"
         animationData={envelope}
       />
 
       <Button className="flex w-[300px]">Claim Your Prize</Button>
     </>
   ) : (
-    <div className="flex flex-col items-center gap-4">
-      <span className="text-[60px]">Choose the Correct One</span>
+    <div className="flex p-8 lg:p-0 flex-col items-center gap-4">
+      <span className="text-[40px] font-medium  w-full lg:w-auto lg:text-[60px]">
+        Choose the Correct One
+      </span>
 
-      <div className="grid gap-4 h-[600px] grid-cols-3 w-[600px]">
+      <div className="grid gap-4 h-[600px] grid-cols-3 lg:w-[600px]">
         {listArray?.map((item1, index) =>
           item1.map((item3, index2) => (
             <>

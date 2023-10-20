@@ -87,7 +87,7 @@ function page() {
         </div>
       </div> */}
 
-      <div className="flex items-center flex-col w-full gap-4 justify-center pt-[4rem]">
+      <div className="flex items-center p-8 lg:p-0 flex-col w-full gap-4 justify-center pt-[4rem]">
         <Image
           height={500}
           width={1000}
@@ -98,7 +98,7 @@ function page() {
         <div className="z-[10] flex flex-col gap-4">
           <Lottie className="h-[300px]" animationData={create}></Lottie>
 
-          <span className="text-[60px] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500  text-transparent bg-clip-text  font-medium">
+          <span className="lg:text-[60px]  text-[40px] bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500  text-transparent bg-clip-text  font-medium">
             Create the Envelope
           </span>
 
