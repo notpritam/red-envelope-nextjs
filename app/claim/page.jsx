@@ -89,7 +89,7 @@ function page() {
         </>
       ) : null}
 
-      {!code || !add ? (
+      {!showGame ? (
         <>
           <div className="flex mt-[10px] items-center flex-col w-full p-8 lg:p-0 gap-4 justify-center">
             <Lottie className="h-[300px]" animationData={entertheCode} />

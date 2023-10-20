@@ -100,6 +100,7 @@ function page() {
         functionName: "getLatest",
       });
       setenvHash(data);
+      console.log("this is hash", envHash);
 
       toast.success("Envelope Successfully Created");
     },
@@ -128,7 +129,6 @@ function page() {
       args: [greetings, count, hashArray],
       value: parseEther(`${amount}`),
     });
-    toast.success("Envelope Successfully Created");
   };
 
   return (
@@ -260,7 +260,7 @@ function page() {
               </span>
             </div>
             <Table className="w-[80%] m-auto">
-              <TableCaption>A list of your recent invoices.</TableCaption>
+              <TableCaption>A list of your recent gift codes</TableCaption>
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[200px]">Member No.</TableHead>
