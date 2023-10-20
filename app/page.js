@@ -92,7 +92,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center lg:gap-12 gap-4 justify-between p-8 lg:p-24">
       <div className="w-full h-[80vh] lg:h-[50vh] justify-center align-middle items-center lg:flex-row flex-col-reverse flex gap-4">
         <div className="flex w-full h-full justify-center align-middle gap-8 flex-col">
-          <span className="lg:text-[60px] text-[40px] font-medium">
+          <span className="lg:text-[75px]  text-[40px] font-medium">
             Send{" "}
             <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%] ">
               Gifts Worldwide
@@ -122,10 +122,9 @@ export default function Home() {
         </div>
       </div>
 
-      <img src="/assets/heroLine.svg"></img>
-
-      <div className="flex flex-col w-full lg:items-center  gap-4">
-        <span className=" text-[35px] lg:text-[50px] font-semibold">
+      <div className="flex relative lg:pt-[10rem] flex-col w-full lg:items-center  gap-4">
+        <img className="mb-4" src="/assets/line.svg"></img>
+        <span className=" z-10 text-[35px] lg:text-[50px] font-semibold">
           Unlocking the{" "}
           <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%]">
             Magic
@@ -134,6 +133,7 @@ export default function Home() {
         <span className="text-xl text-gray-500">
           The RedLetter Journey Explained
         </span>
+        <img className="mt-4" src="/assets/line.svg"></img>
 
         <div className="grid grid-cols-1 mt-[3rem] lg:grid-cols-3  items-center align-middle gap-8 lg:w-[90%]">
           {unlockingTheMagic.map((item, index) => (
@@ -142,7 +142,9 @@ export default function Home() {
                 <div className="h-[80px] w-[80px] rounded-full border flex justify-center items-center text-[30px] font-semibold  bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%]">
                   {index + 1}
                 </div>
-                <span className="text-[20px] font-bold">{item.title}</span>
+                <span className="text-[20px]  tracking-[.15rem]">
+                  {item.title}
+                </span>
                 <span className="text-[16px] text-gray-400">{item.des}</span>
               </div>
             </>
@@ -150,17 +152,19 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col w-full lg:items-center  gap-4">
+      <div className="flex mt-[6rem] flex-col w-full lg:items-center  gap-4">
+        <img className="mb-4" src="/assets/line.svg"></img>
+
         <span className=" text-[35px] lg:text-[50px] font-semibold ">
           <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%]">
-            {" "}
-            Technolgies
+            Technolgies{" "}
           </span>
           Used
         </span>
         <span className="text-xl text-gray-500">Sending Gifts Made Easy</span>
+        <img className="mt-4" src="/assets/line.svg"></img>
 
-        <div className="lg:flex grid grid-cols-2 lg:gap-4 gap-y-4 items-center justify-center">
+        <div className="lg:flex mt-[3rem] grid grid-cols-2 lg:gap-8 gap-y-4 items-center justify-center">
           <div className="bg-white p-4 rounded-lg shadow-lg">
             <Image height={100} width={100} src={"./next.svg"}></Image>
           </div>
@@ -206,13 +210,16 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col w-full lg:items-center  gap-4">
-        <span className=" text-[35px] lg:text-[50px] font-semibold">
+      <div className="flex mt-[6rem] flex-col w-full lg:items-center  gap-4">
+        <img className="mt-4" src="/assets/line.svg"></img>
+
+        <span className=" bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%] text-[35px] lg:text-[50px] font-semibold">
           Key Features
         </span>
         <span className="text-xl text-gray-500">Sending Gifts Made Easy</span>
+        <img className="mb-4" src="/assets/line.svg"></img>
 
-        <div className="grid grid-cols-1 mt-[3rem] lg:grid-cols-3  items-center align-middle gap-8 lg:w-[90%]">
+        <div className="grid grid-cols-1 mt-[6rem] lg:grid-cols-3  items-center align-middle gap-8 lg:w-[90%]">
           {keyFeatures.map((item) => (
             <>
               <div className="rounded-lg w-full lg:w-auto overflow-hidden p-8 flex-col flex gap-4 border-[2px] dark">
@@ -220,7 +227,9 @@ export default function Home() {
                   className="h-[150px] w-[150px]"
                   animationData={item.img}
                 ></Lottie>
-                <span className="text-[20px] font-bold">{item.title}</span>
+                <span className="text-[20px]  tracking-[.15rem]">
+                  {item.title}
+                </span>
                 <span className="text-[16px] text-gray-400">{item.des}</span>
               </div>
             </>
@@ -228,7 +237,9 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col w-full lg:items-center  gap-4">
+      <div className="flex mt-[6rem] flex-col w-full lg:items-center  gap-4">
+        <img className="mt-4" src="/assets/line.svg"></img>
+
         <span className=" text-[35px] lg:text-[50px] font-semibold">
           <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%]">
             Coming Soon
@@ -237,8 +248,9 @@ export default function Home() {
         <span className="text-xl text-gray-500">
           Stay Tuned for Exciting Features That Will Redefine the Art of Gifting
         </span>
+        <img className="mb-4" src="/assets/line.svg"></img>
 
-        <div className="grid grid-cols-1 mt-[3rem] lg:grid-cols-3  items-center align-middle gap-8 lg:w-[90%]">
+        <div className="grid  mt-[5rem] grid-cols-1 lg:grid-cols-3  items-center align-middle gap-8 lg:w-[90%]">
           {upcomingFeatures.map((item, index) => (
             <>
               <div className="hover:shadow-2xl duration-300 ease-in-out h-full hover:border-white rounded-lg w-full lg:w-auto overflow-hidden p-4 items-center flex gap-4 border-[2px] dark">
