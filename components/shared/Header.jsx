@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/menubar";
 import { Copy, LogOut } from "lucide-react";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 function Header() {
   const { account, address, connector, isConnected } = useAccount();
@@ -41,26 +42,24 @@ function Header() {
   const { disconnect } = useDisconnect();
 
   return (
-    <div className="p-4 h-[100px]  pl-12 pr-12 bg-opacity-30 border-b   sticky top-0 z-10  backdrop-filter backdrop-blur-lg flex items-center justify-between">
-      <img src="/assets/logo.png" className="h-[80px] w-[80px]"></img>
+    <div className="p-4 h-[100px] text_16  pl-12 pr-12 bg-opacity-30 border-b   sticky top-0 z-10  backdrop-filter backdrop-blur-lg flex items-center justify-between">
+      <Link href="/">
+        <img src="/assets/logo.png" className="h-[80px] w-[80px]"></img>
+      </Link>
 
       <div className="flex gap-4 w-full justify-end">
-        <Menubar>
+        <Menubar className="gap-4 pr-8 pl-8">
           <MenubarMenu>
-            <MenubarTrigger>Send Gifts</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem>
-                New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-              </MenubarItem>
-              <MenubarItem>New Window</MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem>Share</MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem>Print</MenubarItem>
-            </MenubarContent>
+            <Link href="/create">Send Gifts</Link>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger>Recieve Gifts</MenubarTrigger>
+            <Link href="/claim">Claim Gifts</Link>
+          </MenubarMenu>
+
+          <MenubarMenu>
+            <MenubarTrigger className="text-[16px] cursor-pointer">
+              About Us
+            </MenubarTrigger>
             <MenubarContent>
               <MenubarItem>
                 New Tab <MenubarShortcut>⌘T</MenubarShortcut>
