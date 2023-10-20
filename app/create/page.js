@@ -1,8 +1,12 @@
 "use client";
 import Lottie from "lottie-react";
+import { Slider } from "@/components/ui/slider";
 
 import giftAni from "../../ani/giftIcon.json";
 import envelope from "../../ani/envelope.json";
+
+import create from "../../ani/create.json";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,18 +16,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Copy, KeySquare, LogIn } from "lucide-react";
+import { Coins, Copy, KeySquare, LogIn } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { useParams, useSearchParams } from "next/navigation";
 
 import { useAccount, useConnect } from "wagmi";
+import Image from "next/image";
 
 function page() {
   const { account, address, connector, isConnected } = useAccount();
   const { connect, connectors, error, isLoading, pendingConnector } =
     useConnect();
   const [open, setOpen] = useState(!isConnected);
+
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -80,28 +87,45 @@ function page() {
         </div>
       </div> */}
 
-      <div className="flex items-center flex-col w-full gap-4 justify-center">
+      <div className="flex items-center flex-col w-full gap-4 justify-center pt-[4rem]">
+        <Image
+          height={500}
+          width={1000}
+          className="w-full h-full z-[0] bg-black opacity-20 absolute"
+          src="/assets/banner.jpg"
+        ></Image>
+
+        <Lottie animationData={create}></Lottie>
+
         <span className="text-[60px] font-medium">Create the Envelope</span>
 
-        <div className="flex flex-row w-full justify-center gap-4">
-          <div className="flex border  rounded-md p-2 pl-4 pr-4 items-center focus:outline-none focus:ring-0 focus:border-none">
-            <KeySquare />
+        <div className="flex flex-col  relative z-[100] justify-center gap-8">
+          <div className="flex border gap-4  border-white rounded-md p-2 pl-4 pr-4 items-center focus:outline-none focus:ring-0 focus:border-none">
+            <Coins />
             <input
-              placeholder="0XFDD"
+              placeholder="Amount"
+              type="number"
               className="p-2 shadow-none text-[20px] dark bg-transparent rounded-md overflow-hidden"
             ></input>
           </div>
 
-          <div className="flex border  rounded-md p-2 pl-4 pr-4 items-center focus:outline-none focus:ring-0 focus:border-none">
-            <KeySquare />
-            <input
-              placeholder="0XFDD"
-              className="p-2 shadow-none text-[20px] dark bg-transparent rounded-md overflow-hidden"
-            ></input>
+          <div className="flex flex-col gap-4">
+            <span className="text-[18px]">Member Count :- {count}</span>
+            <Slider
+              defaultValue={[count]}
+              onValueChange={(e) => {
+                setCount(e);
+                console.log(e);
+              }}
+              max={15}
+              step={1}
+            />
           </div>
         </div>
 
-        <Button className="p-4 text-[16px]">Submit</Button>
+        <Button className="p-4 pl-8 pr-8 mt-12 w-auto text-[16px]">
+          Submit
+        </Button>
       </div>
     </>
   );
