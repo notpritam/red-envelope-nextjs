@@ -61,7 +61,7 @@ const characters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 function generateString(length) {
-  let result = " ";
+  let result = "";
   const charactersLength = characters.length;
   for (let i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -120,11 +120,8 @@ function page() {
       passArray.push(pass);
       hashArray.push(Web3.utils.soliditySha3({ type: "string", value: pass }));
     }
-    console.log(passArray);
     setUserCodeList(passArray);
-    console.log(hashArray);
-    console.log(count);
-    console.log(greeting);
+
     write({
       args: [greetings, count, hashArray],
       value: parseEther(`${amount}`),
