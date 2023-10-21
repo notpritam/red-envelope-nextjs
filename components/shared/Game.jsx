@@ -7,6 +7,9 @@ const generateRandomCell = () => {
 import Lottie from "lottie-react";
 import envelope from "../../ani/envelope.json";
 
+import envelopAbi from "../../lib/envelopeAbi";
+import { writeContract, readContract } from "@wagmi/core";
+
 import { useEffect, useState } from "react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -14,7 +17,7 @@ import { Terminal } from "lucide-react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 
-function Game() {
+function Game({ code, address }) {
   const [listArray, setlistArray] = useState();
   const rowAnswer = Math.floor(Math.random() * 3) + 1;
   const colAnswer = Math.floor(Math.random() * 3) + 1;
@@ -55,6 +58,26 @@ function Game() {
       setTryCount((tryCount) => tryCount + 1);
     }
   };
+
+  const claimPrize = async () => {
+    const hash = await writeContract({
+      abi: envelopAbi,
+      address: address,
+      functionName: "claim",
+      args: [code],
+    });
+
+    const data = await readContract({
+      abi: envelopAbi,
+      address: address,
+      functionName: "getAmt",
+    });
+
+    console.log(data, "this is data");
+
+    setPrizedClaimed(data);
+  };
+
   return gameStatus ? (
     <>
       <span className="text-[2rem] lg:text-[4rem] font-semibold bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%] mt-10px">
@@ -72,7 +95,9 @@ function Game() {
         animationData={envelope}
       />
 
-      <Button className="flex w-[300px]">Claim Your Prize</Button>
+      <Button onClick={() => claimPrize()} className="flex w-[300px]">
+        Claim Your Prize
+      </Button>
     </>
   ) : (
     <div className="flex p-8 lg:p-0 flex-col items-center gap-4">
@@ -93,7 +118,11 @@ function Game() {
                     : handleCellClick(index + 1, index2 + 1)
                 }
               >
-                <Lottie className="" animationData={envelope}></Lottie>
+                <Lottie
+                  className=""
+                  autoPlay={false}
+                  animationData={envelope}
+                ></Lottie>
               </div>
             </>
           ))

@@ -130,7 +130,7 @@ function page() {
       {showGame ? (
         <>
           <div className=" flex flex-col items-center gap-8">
-            <Game />
+            <Game code={code} address={add} />
           </div>
         </>
       ) : null}

@@ -34,11 +34,13 @@ import {
 import {
   Coins,
   Copy,
+  Delete,
   Facebook,
   KeySquare,
   LogIn,
   Mail,
   MessageSquare,
+  View,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -56,6 +58,7 @@ import { readContract } from "@wagmi/core";
 import Image from "next/image";
 import { parseEther } from "viem";
 import toast from "react-hot-toast";
+import Link from "next/link.js";
 
 const characters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -87,7 +90,7 @@ function page() {
   //dont forget to set envHash to nUll after testing
 
   const [userCodeList, setUserCodeList] = useState();
-  const [envHash, setenvHash] = useState("test");
+  const [envHash, setenvHash] = useState(null);
   const { write, data, error, isLoading, isError } = useContractWrite({
     address: contractAdd,
     abi: FactoryAbi,
@@ -279,6 +282,53 @@ function page() {
                           <Copy className="cursor-pointer" />
                           <Facebook className="cursor-pointer" />
                           <Mail className="cursor-pointer" />
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  </>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </>
+      ) : null}
+
+      {true != null ? (
+        <>
+          <div className="p-8 mt-[8rem]  flex align-middle items-center w-full justify-center flex-col ">
+            <div className="w-[80%] flex flex-col mb-[2rem]">
+              <span className="text-[60px] font-medium bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500  text-transparent bg-clip-text">
+                Gift Archive
+              </span>
+              <span className="text-xl text-gray-500">
+                Revisit Your Heartfelt Gifts and Celebrate the Joy You've Shared
+              </span>
+            </div>
+            <Table className="w-[80%] m-auto">
+              <TableCaption>A list of your recent gift codes</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[200px]">Envelope No.</TableHead>
+                  <TableHead>Address</TableHead>
+                  <TableHead className="flex-1 flex w-full">Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {userCodeList?.map((item, index) => (
+                  <>
+                    <TableRow>
+                      <TableCell className="font-medium">{index + 1}</TableCell>
+                      <TableCell>
+                        <span>
+                          {`http://localhost:3000/claim?code=&address=}`}
+                        </span>
+                      </TableCell>
+                      <TableCell className="flex gap-[2rem]">
+                        <div className="flex gap-2">
+                          <Delete className="cursor-pointer" />
+                          <Link href={"/envelope?search=testing"}>
+                            <View className="cursor-pointer" />
+                          </Link>
                         </div>
                       </TableCell>
                     </TableRow>
