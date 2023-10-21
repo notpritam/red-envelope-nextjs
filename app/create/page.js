@@ -73,7 +73,7 @@ function generateString(length) {
   return result;
 }
 
-const contractAdd = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+const contractAdd = "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB";
 
 function page() {
   const { account, address, connector, isConnected } = useAccount();
@@ -90,6 +90,7 @@ function page() {
   //dont forget to set envHash to nUll after testing
 
   const [userCodeList, setUserCodeList] = useState();
+
   const [envHash, setenvHash] = useState(null);
   const { write, data, error, isLoading, isError } = useContractWrite({
     address: contractAdd,
@@ -131,6 +132,20 @@ function page() {
     });
   };
 
+  const [envlopeList, setEnvelopeList] = useState(null);
+
+  useEffect(()=>{getEnvleopesList()},[])
+  const getEnvleopesList= async ()=>{
+    const myEnvelopes = await readContract({
+      address: contractAdd,
+      abi: FactoryAbi,
+      functionName: "getEnvelopes"
+    });
+
+    setEnvelopeList(myEnvelopes);
+
+    console.log(myEnvelopes);
+  }
   return (
     <>
       {!isConnected ? (
@@ -293,7 +308,7 @@ function page() {
         </>
       ) : null}
 
-      {true != null ? (
+      {envlopeList != null ? (
         <>
           <div className="p-8 mt-[8rem]  flex align-middle items-center w-full justify-center flex-col ">
             <div className="w-[80%] flex flex-col mb-[2rem]">
@@ -314,19 +329,20 @@ function page() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {userCodeList?.map((item, index) => (
+                {envlopeList?.map((item, index) => (
                   <>
                     <TableRow>
                       <TableCell className="font-medium">{index + 1}</TableCell>
                       <TableCell>
-                        <span>
-                          {`http://localhost:3000/claim?code=&address=}`}
-                        </span>
+                        <Link href={`http://localhost:3000/envelope?search=${item}}`}/>
+                      
+                      {item}
+                        
                       </TableCell>
                       <TableCell className="flex gap-[2rem]">
                         <div className="flex gap-2">
                           <Delete className="cursor-pointer" />
-                          <Link href={"/envelope?search=testing"}>
+                          <Link href={`/envelope?search=${item}`}>
                             <View className="cursor-pointer" />
                           </Link>
                         </div>
