@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 import { Copy, Facebook, Mail } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -42,16 +42,16 @@ function page() {
   function convertUnixTimestampToDateTime(timestampInSeconds) {
     const date = new Date(timestampInSeconds * 1000); // Convert seconds to milliseconds
     const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
-    const day = date.getDate().toString().padStart(2, '0');
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const seconds = date.getSeconds().toString().padStart(2, '0');
-  
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-indexed
+    const day = date.getDate().toString().padStart(2, "0");
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const seconds = date.getSeconds().toString().padStart(2, "0");
+
     const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     return formattedDateTime;
   }
-  
+
   const unixTimestamp = 1697848672n;
   const dateTimeString = convertUnixTimestampToDateTime(Number(unixTimestamp));
   console.log(dateTimeString);
@@ -64,9 +64,8 @@ function page() {
     })
 
     router.reload();
-    toast.success("Envelope Deleted Successfully")
-
-  }
+    toast.success("Envelope Deleted Successfully");
+  };
 
   const getEnvelopeDetail = async (addF) => {
     console.log(addF);
@@ -121,11 +120,14 @@ function page() {
         Revisit Your Heartfelt Gifts and Celebrate the Joy You've Shared
       </span>
 
-      {balance >0 ? <Button onClick={()=>withdraw(addressofGift)} className="w-[300px] mt-4">
-
-Delete & Withdraw Funds
-
-</Button>:null}
+      {balance > 0 ? (
+        <Button
+          onClick={() => withdraw(addressofGift)}
+          className="w-[300px] mt-4"
+        >
+          Delete & Withdraw Funds
+        </Button>
+      ) : null}
 
       <div className="flex flex-col gap-4 mt-5">
         <span className="text-[30px] text-gray-500">Greeting:- {greeting}</span>
@@ -148,8 +150,12 @@ Delete & Withdraw Funds
               <TableRow className="w-full">
                 <TableCell className="font-medium">{index + 1}</TableCell>
                 <TableCell>{item.receiver}</TableCell>
-                <TableCell className=" ">{ Web3.utils.fromWei(item.amt, "ether")}</TableCell>
-                <TableCell className=" ">{convertUnixTimestampToDateTime(Number(item.time))}</TableCell>
+                <TableCell className=" ">
+                  {Web3.utils.fromWei(item.amt, "ether")}
+                </TableCell>
+                <TableCell className=" ">
+                  {convertUnixTimestampToDateTime(Number(item.time))}
+                </TableCell>
               </TableRow>
             </>
           ))}
