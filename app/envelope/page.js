@@ -127,7 +127,7 @@ function page() {
         >
           Delete & Withdraw Funds
         </Button>
-      ) : null}
+      ) : <span className="text-[40px] text-gray-600">Envelope Expired!!!!</span>}
 
       <div className="flex flex-col gap-4 mt-5">
         <span className="text-[30px] text-gray-500">Greeting:- {greeting}</span>

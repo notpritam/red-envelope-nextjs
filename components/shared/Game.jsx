@@ -74,7 +74,7 @@ function Game({ code, address }) {
       functionName: "getAmt",
     });
 
-    toast.success(`You Won ${data}!!`);
+    toast.success(`You Won!! Check your wallet`);
     console.log(data, "this is data");
 
     redirect("/");

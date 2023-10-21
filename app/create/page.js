@@ -54,9 +54,8 @@ import {
   useConnect,
   useContractWrite,
   useWaitForTransaction,
-  writeContract,
 } from "wagmi";
-import { readContract } from "@wagmi/core";
+import { readContract , writeContract} from "@wagmi/core";
 
 import Image from "next/image";
 import { parseEther } from "viem";
@@ -76,7 +75,7 @@ function generateString(length) {
   return result;
 }
 
-const contractAdd = "0x5095d3313C76E8d29163e40a0223A5816a8037D8";
+const contractAdd = "0x663F3ad617193148711d28f5334eE4Ed07016602";
 
 function page() {
   const router = useRouter();
@@ -175,7 +174,7 @@ function page() {
                   <Lottie className="h-[300px]" animationData={giftAni} />
                   <DialogTitle>You are not Logged in..</DialogTitle>
                   <div className="flex flex-col gap-4 mt-4">
-                    To Claim the envelope, please login with any wallet..
+                    To Claim or Create the envelope, please login with any wallet..
                     <Button className="flex gap-4" onClick={() => connect()}>
                       <LogIn />
                       {connectors
