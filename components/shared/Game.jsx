@@ -16,6 +16,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
+import { redirect } from "next/navigation";
 
 function Game({ code, address }) {
   const [listArray, setlistArray] = useState();
@@ -73,9 +74,10 @@ function Game({ code, address }) {
       functionName: "getAmt",
     });
 
+    toast.success(`You Won ${data}!!`);
     console.log(data, "this is data");
 
-    setPrizedClaimed(data);
+    redirect("/");
   };
 
   return gameStatus ? (

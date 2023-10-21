@@ -73,7 +73,7 @@ function generateString(length) {
   return result;
 }
 
-const contractAdd = "0x8464135c8F25Da09e49BC8782676a84730C318bC";
+const contractAdd = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 
 function page() {
   const { account, address, connector, isConnected } = useAccount();
