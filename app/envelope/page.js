@@ -60,6 +60,7 @@ function page() {
     await writeContract({
       address: addF,
       abi:envelopAbi,
+      functionName:"withdraw"
     })
 
     router.reload();
