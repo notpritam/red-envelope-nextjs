@@ -108,7 +108,7 @@ function page() {
     }
   };
   return (
-    <div className="flex flex-col p-4 lg:p-8">
+    <div className="flex flex-col p-4 lg:p-8" suppressHydrationWarning>
       <span className=" text-[35px] lg:text-[50px] font-semibold">
         Envelope Details of :-{" "}
         <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%]">

@@ -75,7 +75,7 @@ function generateString(length) {
   return result;
 }
 
-const contractAdd = "0x663F3ad617193148711d28f5334eE4Ed07016602";
+const contractAdd = "0x7ef8E99980Da5bcEDcF7C10f41E55f759F6A174B";
 
 function page() {
   const router = useRouter();
