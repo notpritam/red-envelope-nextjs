@@ -13,7 +13,7 @@ import { Copy, Facebook, Mail } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { readContracts , readContract} from "@wagmi/core";
-
+import { Web3 } from "web3";
 function page() {
   const searchParams = useSearchParams();
 
@@ -55,10 +55,26 @@ const [transactionList, setTransactionList] =useState()
   });
 
   console.log(allData, "all data");
+  const rbalance = allData[0];
+  const rtrasactions = allData[2];
+  const rgreeting = allData[1];
 
-  setTransactionList(allData[2].result);
-  setBalance(allData[0]);
-  setGreeting(allData[1]);
+  if (rbalance.status == "success") {
+    
+    const etherbal = Web3.utils.fromWei(rbalance.result,"ether");
+    console.log(etherbal,rbalance.result,"balanceeeeee")
+    setBalance(etherbal)
+  }
+  console.log(rbalance, "balance")
+  if (rgreeting.status == "success") {
+    setGreeting(rgreeting.result)
+  }
+  if (rtrasactions.status == "success") {
+    setTransactionList(rtrasactions.result)
+  }
+  // setTransactionList(allData[2].result);
+  
+  
   }
   return (
     <div className="flex flex-col lg:p-8">
@@ -73,10 +89,15 @@ const [transactionList, setTransactionList] =useState()
         Revisit Your Heartfelt Gifts and Celebrate the Joy You've Shared
       </span>
 
-      <span>
-{greeting.result} {balance.result}
+      <div className="flex flex-col gap-4 mt-5">
+      <span className="text-[30px] text-gray-500">
+Greeting:-  {greeting}
       </span>
 
+      <span className="text-[30px] text-gray-500">
+Balance:-  {balance}
+      </span>
+      </div>
       <Table className="mt-[5rem]">
         <TableCaption>A list of your recent gift claimed </TableCaption>
         <TableHeader>
