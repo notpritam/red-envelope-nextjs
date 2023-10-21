@@ -107,7 +107,7 @@ function page() {
     }
   };
   return (
-    <div className="flex flex-col lg:p-8">
+    <div className="flex flex-col p-4 lg:p-8">
       <span className=" text-[35px] lg:text-[50px] font-semibold">
         Envelope Details of :-{" "}
         <span className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-transparent bg-clip-text bg-[300%]">
@@ -137,7 +137,7 @@ function page() {
         <TableCaption>A list of your recent gift claimed </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[200px]">Member No.</TableHead>
+            <TableHead className="">Member No.</TableHead>
             <TableHead>Address</TableHead>
             <TableHead className=" ">Amount</TableHead>
             <TableHead className="  ">Time</TableHead>

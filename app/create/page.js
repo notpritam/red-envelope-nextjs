@@ -2,7 +2,7 @@
 
 import FactoryAbi from "../../lib/redFactory.js";
 
-import envelopAbi from "../../lib/envelopeAbi.js"
+import envelopAbi from "../../lib/envelopeAbi.js";
 
 import Lottie from "lottie-react";
 import { Slider } from "@/components/ui/slider";
@@ -47,13 +47,14 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 import { useParams, useSearchParams } from "next/navigation";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import {
   readContracts,
   useAccount,
   useConnect,
   useContractWrite,
-  useWaitForTransaction,writeContract
+  useWaitForTransaction,
+  writeContract,
 } from "wagmi";
 import { readContract } from "@wagmi/core";
 
@@ -61,7 +62,6 @@ import Image from "next/image";
 import { parseEther } from "viem";
 import toast from "react-hot-toast";
 import Link from "next/link.js";
-
 
 const characters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -79,7 +79,6 @@ function generateString(length) {
 const contractAdd = "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB";
 
 function page() {
-
   const router = useRouter();
 
   const { account, address, connector, isConnected } = useAccount();
@@ -143,28 +142,28 @@ function page() {
   const withdraw = async (addF) => {
     await writeContract({
       address: addF,
-      abi:envelopAbi,
-    })
+      abi: envelopAbi,
+    });
 
-    router.reload()
+    router.reload();
 
-    toast.success("Envelope Deleted Successfully")
+    toast.success("Envelope Deleted Successfully");
+  };
 
-    
-  }
-
-  useEffect(()=>{getEnvleopesList()},[])
-  const getEnvleopesList= async ()=>{
+  useEffect(() => {
+    getEnvleopesList();
+  }, []);
+  const getEnvleopesList = async () => {
     const myEnvelopes = await readContract({
       address: contractAdd,
       abi: FactoryAbi,
-      functionName: "getEnvelopes"
+      functionName: "getEnvelopes",
     });
 
     setEnvelopeList(myEnvelopes);
 
     console.log(myEnvelopes);
-  }
+  };
   return (
     <>
       {!isConnected ? (
@@ -331,7 +330,7 @@ function page() {
         <>
           <div className="p-8 mt-[8rem]  flex align-middle items-center w-full justify-center flex-col ">
             <div className="w-[80%] flex flex-col mb-[2rem]">
-              <span className="text-[60px] font-medium bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500  text-transparent bg-clip-text">
+              <span className="text-[40px] lg:text-[60px] font-medium bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500  text-transparent bg-clip-text">
                 Gift Archive
               </span>
               <span className="text-xl text-gray-500">
@@ -342,7 +341,7 @@ function page() {
               <TableCaption>A list of your recent gift codes</TableCaption>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[200px]">Envelope No.</TableHead>
+                  <TableHead className="">Envelope No.</TableHead>
                   <TableHead>Address</TableHead>
                   <TableHead className="flex-1 flex w-full">Action</TableHead>
                 </TableRow>
@@ -353,14 +352,18 @@ function page() {
                     <TableRow>
                       <TableCell className="font-medium">{index + 1}</TableCell>
                       <TableCell>
-                        <Link href={`http://localhost:3000/envelope?search=${item}}`}/>
-                      
-                      {item}
-                        
+                        <Link
+                          href={`http://localhost:3000/envelope?search=${item}}`}
+                        />
+
+                        {item}
                       </TableCell>
                       <TableCell className="flex gap-[2rem]">
                         <div className="flex gap-2">
-                          <Delete onClick={()=> withdraw(item) } className="cursor-pointer" />
+                          <Delete
+                            onClick={() => withdraw(item)}
+                            className="cursor-pointer"
+                          />
                           <Link href={`/envelope?search=${item}`}>
                             <View className="cursor-pointer" />
                           </Link>
