@@ -59,8 +59,9 @@ function page() {
   const withdraw = async (addF) => {
     await writeContract({
       address: addF,
-      abi: envelopAbi,
-    });
+      abi:envelopAbi,
+      functionName:"withdraw"
+    })
 
     router.reload();
     toast.success("Envelope Deleted Successfully");
