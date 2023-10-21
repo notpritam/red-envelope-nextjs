@@ -2,6 +2,8 @@
 
 import FactoryAbi from "../../lib/redFactory.js";
 
+import envelopAbi from "../../lib/envelopeAbi.js"
+
 import Lottie from "lottie-react";
 import { Slider } from "@/components/ui/slider";
 
@@ -45,13 +47,13 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 import { useParams, useSearchParams } from "next/navigation";
-
+import { useRouter } from 'next/navigation';
 import {
   readContracts,
   useAccount,
   useConnect,
   useContractWrite,
-  useWaitForTransaction,
+  useWaitForTransaction,writeContract
 } from "wagmi";
 import { readContract } from "@wagmi/core";
 
@@ -59,6 +61,7 @@ import Image from "next/image";
 import { parseEther } from "viem";
 import toast from "react-hot-toast";
 import Link from "next/link.js";
+
 
 const characters =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -76,6 +79,9 @@ function generateString(length) {
 const contractAdd = "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB";
 
 function page() {
+
+  const router = useRouter();
+
   const { account, address, connector, isConnected } = useAccount();
   const { connect, connectors, pendingConnector } = useConnect();
   const [open, setOpen] = useState(!isConnected);
@@ -133,6 +139,19 @@ function page() {
   };
 
   const [envlopeList, setEnvelopeList] = useState(null);
+
+  const withdraw = async (addF) => {
+    await writeContract({
+      address: addF,
+      abi:envelopAbi,
+    })
+
+    router.reload()
+
+    toast.success("Envelope Deleted Successfully")
+
+    
+  }
 
   useEffect(()=>{getEnvleopesList()},[])
   const getEnvleopesList= async ()=>{
@@ -341,7 +360,7 @@ function page() {
                       </TableCell>
                       <TableCell className="flex gap-[2rem]">
                         <div className="flex gap-2">
-                          <Delete className="cursor-pointer" />
+                          <Delete onClick={()=> withdraw(item) } className="cursor-pointer" />
                           <Link href={`/envelope?search=${item}`}>
                             <View className="cursor-pointer" />
                           </Link>

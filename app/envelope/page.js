@@ -9,16 +9,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
+import { useRouter } from "next/navigation";
+
 import { Copy, Facebook, Mail } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { readContracts, readContract } from "@wagmi/core";
-
+import { readContracts, readContract, writeContract } from "@wagmi/core";
+import { Web3 } from "web3";
+import { Button } from "@/components/ui/button";
 function page() {
   const searchParams = useSearchParams();
 
   const [addressofGift, setAddressofGift] = useState();
   const addS = searchParams.get("search");
+
+  const router = useRouter();
 
   const [balance, setBalance] = useState(0);
 
@@ -32,6 +38,33 @@ function page() {
       getEnvelopeDetail(addS);
     }
   }, []);
+
+  function convertUnixTimestampToDateTime(timestampInSeconds) {
+    const date = new Date(timestampInSeconds * 1000); // Convert seconds to milliseconds
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-indexed
+    const day = date.getDate().toString().padStart(2, "0");
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const seconds = date.getSeconds().toString().padStart(2, "0");
+
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return formattedDateTime;
+  }
+
+  const unixTimestamp = 1697848672n;
+  const dateTimeString = convertUnixTimestampToDateTime(Number(unixTimestamp));
+  console.log(dateTimeString);
+
+  const withdraw = async (addF) => {
+    await writeContract({
+      address: addF,
+      abi: envelopAbi,
+    });
+
+    router.reload();
+    toast.success("Envelope Deleted Successfully");
+  };
 
   const getEnvelopeDetail = async (addF) => {
     console.log(addF);
@@ -55,10 +88,23 @@ function page() {
     });
 
     console.log(allData, "all data");
+    const rbalance = allData[0];
+    const rtrasactions = allData[2];
+    const rgreeting = allData[1];
 
-    setTransactionList(allData[2].result);
-    setBalance(allData[0]);
-    setGreeting(allData[1]);
+    if (rbalance.status == "success") {
+      const etherbal = Web3.utils.fromWei(rbalance.result, "ether");
+      console.log(etherbal, rbalance.result, "balanceeeeee");
+      setBalance(etherbal);
+    }
+    console.log(rbalance, "balance");
+    if (rgreeting.status == "success") {
+      setGreeting(rgreeting.result);
+    }
+    if (rtrasactions.status == "success") {
+      setTransactionList(rtrasactions.result);
+      console.log(rtrasactions.result, "list");
+    }
   };
   return (
     <div className="flex flex-col lg:p-8">
@@ -73,38 +119,45 @@ function page() {
         Revisit Your Heartfelt Gifts and Celebrate the Joy You've Shared
       </span>
 
-      <span>
-        {greeting.result} {balance.result}
-      </span>
+      {balance > 0 ? (
+        <Button
+          onClick={() => withdraw(addressofGift)}
+          className="w-[300px] mt-4"
+        >
+          Delete & Withdraw Funds
+        </Button>
+      ) : null}
 
-      <Table className="mt-[5rem]">
+      <div className="flex flex-col gap-4 mt-5">
+        <span className="text-[30px] text-gray-500">Greeting:- {greeting}</span>
+
+        <span className="text-[30px] text-gray-500">Balance:- {balance}</span>
+      </div>
+      <Table className="mt-[5rem] w-full">
         <TableCaption>A list of your recent gift claimed </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[200px]">Member No.</TableHead>
-            <TableHead>Code</TableHead>
-            <TableHead className="flex-1 flex w-full">Share</TableHead>
+            <TableHead>Address</TableHead>
+            <TableHead className=" ">Amount</TableHead>
+            <TableHead className="  ">Time</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {/* {transactionList  .map((item, index) => (
+          {transactionList?.map((item, index) => (
             <>
-              <TableRow>
+              <TableRow className="w-full">
                 <TableCell className="font-medium">{index + 1}</TableCell>
-                <TableCell>{item}</TableCell>
-                <TableCell className="flex gap-[2rem]">
-                  <span>
-                    {`http://localhost:3000/claim?code=${item}&address=`}
-                  </span>
-                  <div className="flex gap-2">
-                    <Copy className="cursor-pointer" />
-                    <Facebook className="cursor-pointer" />
-                    <Mail className="cursor-pointer" />
-                  </div>
+                <TableCell>{item.receiver}</TableCell>
+                <TableCell className=" ">
+                  {Web3.utils.fromWei(item.amt, "ether")}
+                </TableCell>
+                <TableCell className=" ">
+                  {convertUnixTimestampToDateTime(Number(item.time))}
                 </TableCell>
               </TableRow>
             </>
-          ))} */}
+          ))}
         </TableBody>
       </Table>
     </div>
